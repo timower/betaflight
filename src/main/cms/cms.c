@@ -251,12 +251,13 @@ static void cmsPageSelect(displayPort_t *instance, int8_t newpage)
     currentCtx.page = (newpage + pageCount) % pageCount;
     pageTop = &currentCtx.menu->entries[currentCtx.page * maxMenuItems];
 
+    cmsUpdateMaxRow(instance);
+ 
     const OSD_Entry *p;
     int i;
     for (p = pageTop, i = 0; (p <= pageTop + pageMaxRow); p++, i++) {
         runtimeEntryFlags[i] = p->flags;
     }
-    cmsUpdateMaxRow(instance);
     displayClearScreen(instance);
 }
 
@@ -374,7 +375,7 @@ static int cmsDrawMenuEntry(displayPort_t *pDisplay, const OSD_Entry *p, uint8_t
     int cnt = 0;
 
 #ifndef USE_OSD
-    UNUSED(selectedRow);
+    UNUSED(selectedRow);U
 #endif
 
     if (smallScreen) {
